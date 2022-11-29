@@ -1,0 +1,16 @@
+# nginx app 弃用
+version: '2'
+services:
+  my-web-app:
+    build:
+      context: .
+      dockerfile: Dockerfile-gaosiqiang-blog-generate
+    container_name: gaosiqiang-blog-generate
+    volumes:
+      - /data/wwwroot/gaosiqiang_blog:/gaosiqiang_blog/public
+
+    stdin_open: true
+    tty: true
+
+# useing
+# docker-compose -f docker-compose-myblog-generate.yml up -d

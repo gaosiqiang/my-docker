@@ -1,0 +1,28 @@
+FROM centos:7
+
+USER root
+
+RUN yum -y install wget zlib zlib-devel openssl openssl--devel pcre pcre-devel gcc gcc-c++ && \
+cd /tmp && \
+wget --no-check-certificate http://nginx.org/download/nginx-1.22.1.tar.gz && \
+tar -zxvf nginx-1.22.1.tar.gz && \
+cd nginx-1.22.1 && \
+./configure --prefix=/usr/local/nginx && \
+make && \
+make install && \
+cd /usr/local/nginx/sbin && \
+./nginx -t && \
+cp /usr/local/nginx/conf/nginx.conf /usr/local/nginx/conf/nginx.conf.default
+
+# CMD ["/usr/local/nginx/sbin/nginx", "-c", "/usr/local/nginx/conf/nginx.conf"]
+CMD ["/usr/local/nginx/sbin/nginx", "-g", "daemon off;"]
+# ENTRYPOINT ["/usr/local/nginx/sbin/nginx", "-c"] # 定参
+# CMD ["/usr/local/nginx/conf/nginx.conf"] # 变参
+# 容器内执行/usr/local/nginx/sbin/nginx -c /etc/nginx/nginx.conf
+
+# Dockerfile-nginx使用
+# cd到Dockerfile-nginx所在的目录
+# docker build -f Dockerfile-nginx -t centos:nginx-1.22.1 .
+# docker run -d -p 82:80 centos:nginx-1.22.1
+# 即可访问
+# 如果docker run -d -p 82:80 centos:nginx-1.22.1 /bin/bash则会覆盖CMD ["/usr/local/nginx/sbin/nginx", "-g", "daemon off;"]指令

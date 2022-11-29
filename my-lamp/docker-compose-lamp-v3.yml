@@ -1,0 +1,46 @@
+# nginx app
+version: '2'
+services:
+  my-web-app:
+    image: sqtech/centos:lamp_v0.1
+    ports:
+      - "80:80"
+    container_name: nginx-app-v3
+    volumes:
+      - /data/wwwroot:/usr/local/nginx/html # 项目路径映射
+      - /data/nginx_conf:/usr/local/nginx/conf # nginx配置映射
+      - /data/logs/nginx_logs:/data/logs/nginx_logs # nginx log映射
+    stdin_open: true
+    tty: true
+    networks:
+      lamp-network-v3:
+        aliases:
+          - nginx-socket-v3 # 使用lamp-network-v3并设置别名
+
+  php-app:
+    image: php:8.2.0RC6-fpm
+    container_name: php-app-v3 # 容器名
+    volumes:
+      - /data/wwwroot:/usr/local/nginx/html # 项目路径映射，必须，php-fpm只是接收到了nginx的请求并没有带文件，所以在php-app中要设置
+      - /data/logs/php_logs:/data/logs/php_logs # wwwroor项目中的php log映射
+    stdin_open: true
+    tty: true
+    networks:
+      lamp-network-v3:
+        aliases:
+          - fpm-socket-v3 # 使用lamp-network-v2并设置别名
+
+networks:
+  lamp-network-v3: # 创建bridge类型的名称为lamp-network-v3的网络
+    driver: bridge
+
+# useing
+# docker-compose -f docker-compose-lamp-v3.yml up -d
+# 进入到php-app-v3容器内ping fpm-socket-v3或ping nginx-app-v3即可ping访问nginx-app-v3容器内的网络
+# 使用docker hub的php官方维护的镜像构建的php-app-v3
+# docker run -it  php:8.2.0RC6-fpm容器自动启动php-fpm
+
+# PS
+# 1、在自定义php容器中/usr/local/etc/php-fpm.d/www.conf配置文件设置listen = 127.0.0.1:9000，即可远程socket协议调用php-fpm；
+# 2、因为fastcgi传输只是通过nginx转发给php-fpm要处理的文件名，而不是文件所以需要nginx容器与php容器内的项目路径一致，否则php找不到；
+# 3、宿主机的/data/logs赋权0777；

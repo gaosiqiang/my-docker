@@ -1,0 +1,49 @@
+# nginx app
+version: '2'
+services:
+  my-web-app:
+    image: sqtech/centos:lamp_v0.1
+    ports:
+      - "80:80"
+    container_name: nginx-app-v2
+    volumes:
+      - /data/wwwroot:/usr/local/nginx/html # 项目路径映射
+      - /data/nginx_conf:/usr/local/nginx/conf # nginx配置映射
+      - /data/logs/nginx_logs:/data/logs/nginx_logs # nginx log映射
+    stdin_open: true
+    tty: true
+    networks:
+      lamp-network-v2:
+        aliases:
+          - nginx-socket-v2 # 使用lamp-network-v2并设置别名
+
+  lamp-app:
+    image: sqtech/centos:lamp_v0.1
+    container_name: php-app-v2 # 容器名
+    # ports:
+    #   - "9001:9000" # 端口映射 # 使用桥接网络即不需要暴露端口
+    volumes:
+      - /data/wwwroot:/usr/local/nginx/html # 项目路径映射，必须，php-fpm只是接收到了nginx的请求并没有带文件，所以在php-app中要设置
+      - /data/php-fpm-conf/www.conf:/usr/local/php/etc/php-fpm.d/www.conf # fpm配置文件
+      - /data/logs/php_logs:/data/logs/php_logs # wwwroor项目中的php log映射
+    stdin_open: true
+    tty: true
+    networks:
+      lamp-network-v2:
+        aliases:
+          - fpm-socket-v2 # 使用lamp-network-v2并设置别名
+
+networks:
+  lamp-network-v2: # 创建bridge类型的名称为lamp-network-v2的网络
+    driver: bridge
+
+# useing
+# docker-compose -f docker-compose-lamp-v2.yml up -d
+# 进入到php-app容器内ping fpm-socket-v2或ping nginx-app即可ping访问nginx-app容器内的网络
+# 缺点，需要到各个容器中分别启动php-fpm和nginx
+# 将nginx和php分别以两个容器运行
+
+# PS
+# 1、在自定义php容器中/usr/local/etc/php-fpm.d/www.conf配置文件设置listen = 127.0.0.1:9000，即可远程socket协议调用php-fpm；
+# 2、因为fastcgi传输只是通过nginx转发给php-fpm要处理的文件名，而不是文件所以需要nginx容器与php容器内的项目路径一致，否则php找不到；
+# 3、宿主机的/data/logs赋权0777；

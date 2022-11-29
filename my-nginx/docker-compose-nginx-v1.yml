@@ -1,0 +1,19 @@
+# nginx app
+version: '2'
+services:
+  my-web-app:
+    # build:
+    #   context: .
+    #   dockerfile: Dockerfile-nginx
+    image: "centos:nginx-1.22.1"
+    command: /usr/local/nginx/sbin/nginx
+    ports:
+      - "80:80"
+    container_name: nginx-app
+    volumes:
+      - /docker_nginx/html:/usr/local/nginx/html
+    stdin_open: true
+    tty: true
+
+# useing
+# docker-compose -f docker-compose-v1.yml up -d

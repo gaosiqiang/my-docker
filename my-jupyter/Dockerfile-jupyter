@@ -1,0 +1,23 @@
+FROM centos:7
+
+# COPY ./Anaconda3-5.1.0-Linux-x86_64.sh /tmp
+
+RUN yum -y install wget bzip2 && \
+cd /tmp && \
+# 下载安装脚本
+wget --no-check-certificate https://mirrors.tuna.tsinghua.edu.cn/anaconda/archive/Anaconda3-5.1.0-Linux-x86_64.sh && \
+# 用脚本安装anaconda需要输入五个个交互式答案顺序分别是Enter，yes，Enter，yes，no
+sh -c '/bin/echo -e "\nyes\n\nyes\n\nno" | bash Anaconda3-5.1.0-Linux-x86_64.sh' && \
+# 环境变量生效
+source ~/.bashrc && \
+conda install jupyter notebook && \
+jupyter notebook --generate-config && \
+cp /root/.jupyter/jupyter_notebook_config.py /root/.jupyter/default_jupyter_notebook_config.py
+
+# docekr容器运算启动
+CMD jupyter notebook --allow-root
+
+# Dockerfile-jupyter使用
+# cd到Dockerfile-jupyter所在的目录
+# docker build -f Dockerfile-jupyter -t centos:jupyter-v1 .
+# 
