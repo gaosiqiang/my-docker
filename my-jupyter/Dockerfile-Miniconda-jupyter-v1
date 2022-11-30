@@ -9,14 +9,15 @@ sh -c '/bin/echo -e "\nyes\n\nyes\n" | bash Miniconda3-latest-Linux-x86_64.sh' &
 # 环境变量生效
 source ~/.bashrc && \
 rm -f Miniconda3-latest-Linux-x86_64.sh && \
-conda info
-
+conda info && \
+# 安装jupyter notebook
+# 更新包
+conda upgrade -y --all && \
+conda install -y jupyter notebook && \
+jupyter notebook --generate-config && \
+cp /root/.jupyter/jupyter_notebook_config.py /root/.jupyter/default_jupyter_notebook_config.py
 
 # Dockerfile-jupyter使用
 # cd到Dockerfile-jupyter所在的目录
-# docker build -f Dockerfile-jupyter -t jupyter:mini-v1 .
+# docker build -f Dockerfile-Miniconda-jupyter-v1 -t jupyter:mini-v1 .
 # 
-# \n
-# yes
-# \n
-# yes
