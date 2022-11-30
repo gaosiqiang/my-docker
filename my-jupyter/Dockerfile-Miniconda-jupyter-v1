@@ -15,10 +15,10 @@ conda info && \
 # conda upgrade -y --all && \
 conda install -y jupyter notebook && \
 jupyter notebook --generate-config && \
-cp /root/.jupyter/jupyter_notebook_config.py /root/.jupyter/default_jupyter_notebook_config.py
+cp /root/.jupyter/jupyter_notebook_config.py /root/.jupyter/jupyter_notebook_config_default.py
 
 # docekr容器运算启动
-CMD jupyter notebook --allow-root
+CMD ["jupyter notebook --allow-root"]
 
 # Dockerfile-jupyter使用
 # cd到Dockerfile-jupyter所在的目录
