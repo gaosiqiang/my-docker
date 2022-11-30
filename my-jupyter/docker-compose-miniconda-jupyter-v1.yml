@@ -2,7 +2,7 @@
 version: '2'
 services:
   my-math-app:
-    iimage: jupyter:mini-v1
+    image: jupyter:mini-v1
     container_name: jupyter-v1
     stdin_open: true
     tty: true
