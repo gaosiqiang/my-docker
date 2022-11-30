@@ -24,7 +24,7 @@ WORKDIR /jupyter_runtime
 # CMD ["/bin/bash jupyter notebook", "--allow-root", "--ip=0.0.0.0", "--no-browser"]
 # ENTRYPOINT ["/bin/sh -c", "jupyter notebook", "--allow-root", "--ip=*", "--no-browser", "--notebook-dir=/jupyter_work"]
 # 启动容器的时候需要source ~/.bashrc生效，否则找不到condd和jupyter notebook命令
-CMD source ~/.bashrc && jupyter notebook --allow-root --ip=0.0.0.0 --no-browser --port 8888 --notebook-dir=/jupyter_work
+CMD source ~/.bashrc && jupyter notebook --allow-root --ip=0.0.0.0 --no-browser --port 8888 --notebook-dir=/jupyter_runtime
 
 # Dockerfile-jupyter使用
 # cd到Dockerfile-jupyter所在的目录
