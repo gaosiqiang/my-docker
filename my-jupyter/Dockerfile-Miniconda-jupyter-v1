@@ -12,10 +12,13 @@ rm -f Miniconda3-latest-Linux-x86_64.sh && \
 conda info && \
 # 安装jupyter notebook
 # 更新包
-conda upgrade -y --all && \
+# conda upgrade -y --all && \
 conda install -y jupyter notebook && \
 jupyter notebook --generate-config && \
 cp /root/.jupyter/jupyter_notebook_config.py /root/.jupyter/default_jupyter_notebook_config.py
+
+# docekr容器运算启动
+CMD jupyter notebook --allow-root
 
 # Dockerfile-jupyter使用
 # cd到Dockerfile-jupyter所在的目录
