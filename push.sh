@@ -1,6 +1,7 @@
 #!/bin/bash
 
 git status
+git diff
 git add .
 git commit -m "commit something"
 git push
