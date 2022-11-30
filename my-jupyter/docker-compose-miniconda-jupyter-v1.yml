@@ -8,6 +8,8 @@ services:
     tty: true
     ports:
       - "8888:8888"
+    volumes:
+      - "/data/jupyter_work:/jupyter_work"
 
 # useing
 # docker-compose -f docker-compose-miniconda-jupyter-v1.yml up -d
