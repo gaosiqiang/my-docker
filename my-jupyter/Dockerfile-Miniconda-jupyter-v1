@@ -18,7 +18,8 @@ jupyter notebook --generate-config && \
 cp /root/.jupyter/jupyter_notebook_config.py /root/.jupyter/jupyter_notebook_config_default.py
 
 # docekr容器运算启动
-CMD ["jupyter notebook --allow-root"]
+# jupyter notebook --allow-root --ip=0.0.0.0 --no-browser --notebook-dir=/data/python/jupyter --port 8888
+CMD ["jupyter notebook", "--allow-root", "--ip=0.0.0.0", "--no-browser", "--notebook-dir=/data/python/jupyter"]
 
 # Dockerfile-jupyter使用
 # cd到Dockerfile-jupyter所在的目录
