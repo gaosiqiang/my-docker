@@ -17,3 +17,4 @@ services:
 
 # useing
 # docker-compose -f docker-compose-v1.yml up -d
+# /usr/local/nginx/sbin/nginx -s reload 重启

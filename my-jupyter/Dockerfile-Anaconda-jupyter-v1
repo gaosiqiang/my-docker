@@ -19,5 +19,5 @@ CMD jupyter notebook --allow-root
 
 # Dockerfile-jupyter使用
 # cd到Dockerfile-jupyter所在的目录
-# docker build -f Dockerfile-jupyter -t centos:jupyter-v1 .
+# docker build -f Dockerfile-Anaconda-jupyter -t jupyter:v1 .
 # 
