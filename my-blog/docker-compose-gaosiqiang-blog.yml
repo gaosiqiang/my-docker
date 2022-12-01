@@ -5,7 +5,7 @@ services:
     # build:
     #   context: .
     #   dockerfile: Dockerfile-gaosiqiang-blog-generate
-    image: blog:generate
+    image: blog-generate:v2
     # command: /gaosiqiang_blog/blog_source/deployment_git_blog_source.sh # 只在该容器内生成静态文件，用nginx web app来访问静态site
     container_name: hexo-app
     volumes:
