@@ -8,5 +8,5 @@ cp _config.yml ../
 # CMD ["/bin/bash", "/blog/blog_source/deployment_git_blog_source.sh"]
 
 # useing
-# docker build -f Dockerfile-gaosiqiang-blog-generate -t blog:generate .
+# docker build -f Dockerfile-gaosiqiang-blog-generate -t blog-generate:v2 .
 # 
