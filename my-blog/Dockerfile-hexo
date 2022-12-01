@@ -7,6 +7,7 @@ npm install -g npm && \
 npm install -g hexo-cli && \
 hexo -v && \
 hexo init && \
+cp _config.yml _config.yml.bak
 
 # useing
 # docker build -f Dockerfile-hexo -t hexo:v1 .
