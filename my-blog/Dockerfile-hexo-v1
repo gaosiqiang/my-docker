@@ -10,5 +10,5 @@ hexo init && \
 cp _config.yml _config.yml.bak
 
 # useing
-# docker build -f Dockerfile-hexo -t hexo:v1 .
+# docker build -f Dockerfile-hexo-v1 -t hexo:v1 .
 # 
