@@ -1,0 +1,19 @@
+# nginx app
+version: '2'
+services:
+  lamp-app:
+    image: sqtech/centos:lamp_v0.1
+    # command: /bin/bash -c "/usr/local/php/sbin/php-fpm && /usr/local/nginx/sbin/nginx"
+    container_name: lamp-app-v1 # 容器名
+    ports:
+      - "80:80" # 端口映射
+    volumes:
+      - /data/wwwroot:/usr/local/nginx/html # 项目路径映射
+      - /data/nginx_conf:/usr/local/nginx/conf # nginx配置映射
+      - /data/logs/nginx_logs:/data/logs/nginx_logs # nginx log映射
+      - /data/logs/php_logs:/data/logs/php_logs # php log映射
+    stdin_open: true
+    tty: true
+
+# useing
+# docker-compose -f docker-compose-lamp-v1.yml up -d
