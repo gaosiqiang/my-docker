@@ -12,4 +12,5 @@ CMD /blog/blog_source/deployment_git_blog_source.sh >> /blog/public/runtime.txt
 
 # useing
 # docker build -f Dockerfile-gaosiqiang-blog-generate-v2 -t blog-generate:v2 .
+# 先构建hexo:v1镜像
 # 

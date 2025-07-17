@@ -9,6 +9,26 @@ hexo -v && \
 hexo init && \
 cp _config.yml _config.yml.bak
 
+# 
 # useing
-# docker build -f Dockerfile-hexo-v1 -t hexo:v1 .
+# cli: docker build -f Dockerfile-hexo-v1 -t hexo:v1 .
+# 执行成功后最后在本地构建hexo:v1镜像
+#
+
+# 
+# Q&A
+# 如果出现该错误
+# ------
+#  > [internal] load metadata for docker.io/library/node:latest:
+# ------
+# Dockerfile-hexo-v1:1
+# --------------------
+#    1 | >>> FROM node:latest
+#    2 |
+#    3 |     WORKDIR /blog
+# --------------------
+# ERROR: failed to solve: DeadlineExceeded: DeadlineExceeded: DeadlineExceeded: node:latest: failed to authorize: DeadlineExceeded: failed to fetch oauth token: Post "https://auth.docker.io/token": dial tcp 108.160.169.54:443: i/o timeout 
+# 说明在构建hexo:v1镜像时在pull node镜像的时候超时。
+# 解决方案：可以在执行Docekrfile之前先执行 docker pull node:latest 将node镜像pull到本地，然后dockerfile会优先使用本地的node镜像就不会从docker hub上拉取node镜像了
+# 解决方案：更换docker的镜像源，因为有时候docker hub不稳定
 # 
