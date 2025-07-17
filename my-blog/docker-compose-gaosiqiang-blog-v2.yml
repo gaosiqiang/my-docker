@@ -14,5 +14,5 @@ services:
     tty: true
 
 # useing
-# docker-compose -f docker-compose-gaosiqiang-blog.yml up -d
+# docker-compose -f docker-compose-gaosiqiang-blog-v2.yml up -d
 # 

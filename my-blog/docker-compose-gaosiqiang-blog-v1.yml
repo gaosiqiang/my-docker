@@ -1,0 +1,18 @@
+# nginx app
+version: '2'
+services:
+  blog-generate-app:
+    # build:
+    #   context: .
+    #   dockerfile: Dockerfile-gaosiqiang-blog-generate
+    image: blog-generate:v2
+    # command: /gaosiqiang_blog/blog_source/deployment_git_blog_source.sh # 只在该容器内生成静态文件，用nginx web app来访问静态site
+    container_name: gaosiqiang-blog
+    volumes:
+      - /data/wwwroot/gaosiqiang_blog:/blog/public # 宿主机路径:容器路径
+    stdin_open: true
+    tty: true
+
+# useing
+# docker-compose -f docker-compose-gaosiqiang-blog-v1.yml up -d
+# 
